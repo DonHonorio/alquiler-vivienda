@@ -1,11 +1,12 @@
 'use client'
 
+import { PropiedadesAlojamiento } from '@/lib/types';
 import React from 'react';
 import { useState, useEffect } from 'react';
 
 const Tabla = () => {
 
-    const [propiedadesAlojamiento, setPropiedadesAlojamiento] = useState<any[]>([]);
+    const [propiedadesAlojamiento, setPropiedadesAlojamiento] = useState<PropiedadesAlojamiento[]>([]);
     const [cargandoPropiedades, setCargandoPropiedades] = useState(true);
     const [errorPropiedades, setErrorPropiedades] = useState<string | null>(null);
 
@@ -21,8 +22,12 @@ const Tabla = () => {
                 setPropiedadesAlojamiento(datos);
 
                 console.log('Obteniendo datos desde api-users: ', datos)
-            } catch (error: any) {
-                setErrorPropiedades(error.message || 'Error desconocido');
+            } catch (error) {
+                if (error instanceof Error) {
+                    setErrorPropiedades(error.message)
+                } {
+                    setErrorPropiedades('Error desconocido')
+                }
             } finally {
                 setCargandoPropiedades(false);
             }
@@ -30,65 +35,6 @@ const Tabla = () => {
 
         obtenerPropiedades();
     }, []);
-
-    // const propiedadesAlojamiento = [
-    //     {
-    //         nombre: 'id',
-    //         tipo: 'Int',
-    //         descripcion: 'Identificador único del alojamiento',
-    //         caracteristicas: 'Clave primaria, autoincremental',
-    //         ejemplo: '1, 2, 3...'
-    //     },
-    //     {
-    //         nombre: 'nombre',
-    //         tipo: 'String',
-    //         descripcion: 'Nombre del alojamiento',
-    //         caracteristicas: 'Campo de texto obligatorio',
-    //         ejemplo: '"Casa de playa", "Apartamento céntrico"'
-    //     },
-    //     {
-    //         nombre: 'descripcion',
-    //         tipo: 'String',
-    //         descripcion: 'Descripción detallada del alojamiento',
-    //         caracteristicas: 'Campo de texto obligatorio',
-    //         ejemplo: '"Hermosa casa con vistas al mar..."'
-    //     },
-    //     {
-    //         nombre: 'precio',
-    //         tipo: 'Float',
-    //         descripcion: 'Precio por noche del alojamiento',
-    //         caracteristicas: 'Número decimal',
-    //         ejemplo: '150.50, 200.00'
-    //     },
-    //     {
-    //         nombre: 'capacidad',
-    //         tipo: 'Int',
-    //         descripcion: 'Número máximo de personas que puede alojar',
-    //         caracteristicas: 'Número entero',
-    //         ejemplo: '4, 6, 8'
-    //     },
-    //     {
-    //         nombre: 'imagenes',
-    //         tipo: 'String[]',
-    //         descripcion: 'Array de URLs de las imágenes del alojamiento',
-    //         caracteristicas: 'Array de strings',
-    //         ejemplo: '["url1.jpg", "url2.jpg"]'
-    //     },
-    //     {
-    //         nombre: 'reservas',
-    //         tipo: 'Reserva[]',
-    //         descripcion: 'Relación con las reservas del alojamiento',
-    //         caracteristicas: 'Relación uno a muchos',
-    //         ejemplo: 'Array de objetos Reserva'
-    //     },
-    //     {
-    //         nombre: 'createdAt',
-    //         tipo: 'DateTime',
-    //         descripcion: 'Fecha y hora de creación del registro',
-    //         caracteristicas: 'Fecha automática al crear',
-    //         ejemplo: '2024-01-15T10:30:00Z'
-    //     }
-    // ]
 
     return (
         < div className="min-h-screen bg-gray-50 py-8" >
@@ -134,7 +80,7 @@ const Tabla = () => {
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
-                                                {/* {propiedad.id} */}
+                                                {propiedad.id}
                                             </span>
                                         </td>
                                         <td className="px-6 py-4">
@@ -144,12 +90,12 @@ const Tabla = () => {
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className="text-sm text-gray-600">
-                                                {/* {propiedad.capacidad} */}
+                                                {propiedad.capacidad}
                                             </div>
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className="text-sm text-gray-600 font-mono">
-                                                {/* {propiedad.imagenes} */}
+                                                {propiedad.imagen}
                                             </div>
                                         </td>
                                     </tr>

@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import Tabla from './components/tabla-users'
+import Tabla from '../components/tabla-users'
 
 export const metadata: Metadata = {
   title: 'Propiedades del Alojamiento',
